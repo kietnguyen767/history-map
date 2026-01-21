@@ -1,0 +1,51 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Bảng Kỷ nguyên (VD: Quá khứ, Hiện tại, Tương lai)
+model Era {
+  id          String  @id @default(uuid())
+  slug        String  @unique // duong-dan-than-thien (vd: qua-khu)
+  title       String  // Tên hiển thị (vd: Quá Khứ)
+  description String?
+  imageUrl    String? // Ảnh đại diện cho mốc thời gian này
+  order       Int     @default(0) // Để sắp xếp thứ tự hiển thị
+  
+  events      Event[]
+}
+
+// Bảng Sự kiện (VD: Chiến tranh, Cách mạng công nghiệp...)
+model Event {
+  id          String  @id @default(uuid())
+  title       String
+  description String?
+  eraId       String
+  era         Era     @relation(fields: [eraId], references: [id])
+  
+  // Một sự kiện sẽ có nhiều "Màn hình" (Scene) để kể chuyện
+  scenes      Scene[]
+}
+
+// Bảng Cảnh (Từng slide nội dung: Ảnh + Lời thoại + Câu hỏi)
+model Scene {
+  id          String  @id @default(uuid())
+  eventId     String
+  event       Event   @relation(fields: [eventId], references: [id])
+  
+  order       Int     // Thứ tự xuất hiện (1, 2, 3...)
+  imageUrl    String? // Ảnh nền cho cảnh
+  dialogue    String? // Lời dẫn truyện
+  
+  // Nếu cảnh này là một câu hỏi
+  isQuiz          Boolean @default(false)
+  quizQuestion    String?
+  quizOptions     String[] // Mảng các lựa chọn ["A", "B", "C"]
+  quizCorrectIndex Int?    // Đáp án đúng (0, 1 hoặc 2...)
+}
