@@ -22,7 +22,7 @@ const eras = [
     title: "Quá Khứ",
     slug: "qua-khu",
     description: "Trở về những nền văn minh cổ đại, nơi huyền thoại bắt đầu.",
-    image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?q=80&w=800&auto=format&fit=crop", 
+    image: "https://img.loigiaihay.com/picture/2020/0525/cac-quoc-gia-phuong-tay-co-dai.jpg", 
     color: "from-amber-700 to-orange-900"
   },
   {
