@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ERAS_DATA } from "@/lib/data";
 
 // Thời gian cho mỗi câu hỏi
-const QUESTION_TIMER = 15;
+const QUESTION_TIMER = 30;
 
 export default function HiddenPuzzlePage() {
   const data = ERAS_DATA["hidden"];
@@ -31,17 +31,15 @@ export default function HiddenPuzzlePage() {
   const tickAudioRef = useRef<HTMLAudioElement | null>(null);
   const wrongAudioRef = useRef<HTMLAudioElement | null>(null);
   const correctAudioRef = useRef<HTMLAudioElement | null>(null);
-  const applauseAudioRef = useRef<HTMLAudioElement | null>(null); // MỚI THÊM
+  const applauseAudioRef = useRef<HTMLAudioElement | null>(null); 
 
   useEffect(() => {
-    // Khởi tạo âm thanh
     tickAudioRef.current = new Audio("/sounds/tick.mp3");
     tickAudioRef.current.loop = true;
     
     wrongAudioRef.current = new Audio("/sounds/wrong.mp3");
     correctAudioRef.current = new Audio("/sounds/correct.mp3");
     
-    // Âm thanh vỗ tay (MỚI)
     applauseAudioRef.current = new Audio("/sounds/applause.mp3");
   }, []);
 
@@ -55,7 +53,7 @@ export default function HiddenPuzzlePage() {
       timer = setInterval(() => {
         setTimeLeft((prev) => {
           if (prev <= 1) {
-            handleTimeOut(); // Hết giờ -> Khóa
+            handleTimeOut(); 
             return 0;
           }
           return prev - 1;
@@ -111,7 +109,6 @@ export default function HiddenPuzzlePage() {
     const correctIndex = data.pieces[activeQuestionId].correctIndex;
     
     if (optionIndex === correctIndex) {
-      // ĐÚNG -> Mở mảnh
       correctAudioRef.current?.play().catch(() => {});
       const newRevealed = [...revealedPieces];
       newRevealed[activeQuestionId] = true;
@@ -120,28 +117,21 @@ export default function HiddenPuzzlePage() {
       setActiveQuestionId(null);
       setIsTimerRunning(false);
     } else {
-      // SAI -> Khóa
       handleFail();
     }
   };
 
-  // --- XỬ LÝ ĐOÁN HÌNH (CHIẾN THẮNG) ---
+  // --- XỬ LÝ ĐOÁN HÌNH ---
   const handleGuessSubmit = () => {
     const cleanGuess = userGuess.trim().toLowerCase();
     
     if (data.validAnswers.includes(cleanGuess)) {
-      // 1. Cập nhật trạng thái thắng
       setIsVictory(true);
-      setRevealedPieces(Array(6).fill(true)); // Mở hết ảnh
-      setFailedPieces(Array(6).fill(false)); // Xóa hết lỗi
+      setRevealedPieces(Array(6).fill(true)); 
+      setFailedPieces(Array(6).fill(false)); 
       setGuessMode(false);
-      
-      // 2. Tắt tiếng đồng hồ (nếu đang chạy)
       tickAudioRef.current?.pause();
-      
-      // 3. PHÁT TIẾNG VỖ TAY (MỚI)
       applauseAudioRef.current?.play().catch(() => {}); 
-      
     } else {
       setErrorMsg("Chưa đúng! Hãy suy luận kỹ hơn.");
       wrongAudioRef.current?.play().catch(() => {});
@@ -163,24 +153,28 @@ export default function HiddenPuzzlePage() {
           animate={{ opacity: 1, scale: 1 }}
           className="text-center max-w-2xl z-20 bg-stone-900/90 p-10 rounded-3xl border border-amber-500/50 backdrop-blur-md"
         >
-          {/* Hiệu ứng pháo giấy/vỗ tay icon */}
           <div className="text-6xl mb-4 animate-bounce">👏 🌍 👏</div>
-          
           <h1 className="text-4xl md:text-5xl font-serif font-bold text-amber-500 mb-6">CHÍNH XÁC!</h1>
           <p className="text-xl text-stone-200 mb-8 leading-relaxed">"{data.victoryMessage}"</p>
-          
           <Link href="/" className="px-8 py-3 bg-white text-black font-bold rounded-full hover:bg-stone-200 uppercase text-sm tracking-widest shadow-[0_0_20px_rgba(255,255,255,0.4)]">
             Về Trang Chủ
           </Link>
         </motion.div>
       ) : (
-        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16 z-10 w-full max-w-5xl">
+        // Tăng max-w lên 7xl để chứa vừa layout ngang
+        <div className="flex flex-col xl:flex-row items-center gap-8 md:gap-16 z-10 w-full max-w-7xl justify-center">
           
-          {/* KHUNG ẢNH */}
-          <div className="relative w-full max-w-sm aspect-[4/6] bg-stone-800 rounded-xl overflow-hidden border-4 border-stone-700 shadow-2xl shrink-0">
+          {/* KHUNG ẢNH (ĐÃ SỬA SANG NGANG) */}
+          {/* 1. max-w-2xl: Tăng chiều rộng tối đa (trước là max-w-sm)
+              2. aspect-video: Tỷ lệ 16:9 (Hình chữ nhật nằm ngang)
+          */}
+          <div className="relative w-full max-w-3xl aspect-video bg-stone-800 rounded-xl overflow-hidden border-4 border-stone-700 shadow-2xl shrink-0">
+            {/* Ảnh nền */}
             <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${data.finalImage}')` }} />
             
-            <div className="absolute inset-0 grid grid-cols-2 grid-rows-3">
+            {/* LƯỚI CHE (ĐÃ SỬA) */}
+            {/* grid-cols-3 grid-rows-2: Chia làm 3 cột, 2 hàng (Tổng 6 mảnh nằm ngang) */}
+            <div className="absolute inset-0 grid grid-cols-3 grid-rows-2">
               {data.pieces.map((piece: any, index: number) => {
                 const isRevealed = revealedPieces[index];
                 const isFailed = failedPieces[index];
@@ -195,7 +189,7 @@ export default function HiddenPuzzlePage() {
                       relative border border-stone-900/50 flex items-center justify-center transition-colors
                       ${isRevealed ? 'pointer-events-none' : ''}
                       ${isFailed 
-                        ? 'bg-red-600 cursor-not-allowed' 
+                        ? 'bg-red-700 cursor-not-allowed' 
                         : 'bg-stone-800 hover:bg-stone-700 cursor-pointer'
                       }
                     `}
@@ -213,11 +207,11 @@ export default function HiddenPuzzlePage() {
           </div>
 
           {/* BẢNG ĐIỀU KHIỂN */}
-          <div className="flex flex-col items-center md:items-start text-center md:text-left">
+          <div className="flex flex-col items-center xl:items-start text-center xl:text-left max-w-sm">
             <h2 className="text-3xl font-serif font-bold text-amber-500 mb-2">Mảnh Ghép Sự Thật</h2>
             
 
-            <div className="flex flex-col gap-4 w-full max-w-xs">
+            <div className="flex flex-col gap-4 w-full">
               <button 
                 onClick={() => setGuessMode(true)}
                 className="w-full py-4 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg shadow-lg uppercase tracking-widest hover:scale-105 transition-transform"
@@ -225,7 +219,7 @@ export default function HiddenPuzzlePage() {
                 Đoán Hình Ngay ⚡
               </button>
               
-              <div className="text-stone-500 text-sm mt-2 flex justify-center gap-4">
+              <div className="text-stone-500 text-sm mt-2 flex justify-center xl:justify-start gap-4">
                 <span>Mở: <b className="text-green-500">{revealedPieces.filter(Boolean).length}</b></span>
                 <span>Hỏng: <b className="text-red-500">{failedPieces.filter(Boolean).length}</b></span>
               </div>

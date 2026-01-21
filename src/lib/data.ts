@@ -406,97 +406,100 @@ export const ERAS_DATA: any = {
   // ============================================================
   // CHƯƠNG ẨN: MINI GAME LẬT HÌNH
   // ============================================================
+  // ============================================================
+  // CHƯƠNG ẨN: MINI GAME LẬT HÌNH
+  // ============================================================
   "hidden": {
-    title: "Sự Thật Cuối Cùng",
-    // Link ảnh gốc: Pyramid of Capitalist System (1911)
-    finalImage: "https://topwar.ru/uploads/posts/2025-11/dfa70f43fd_pyramid_of_capitalist_system.webp", 
+    title: "Bản Chất Xã Hội", // Đổi tiêu đề cho phù hợp với nội dung lý luận
+    // Link ảnh gốc bạn cung cấp
+    finalImage: "https://www.posterplakat.com/content/1-the-collection/posters/0-pp-001/PP001.jpg", 
     
-    // Các từ khóa chấp nhận cho đáp án đúng (Tiếng Việt và Tiếng Anh)
+    // Các từ khóa chấp nhận cho đáp án đúng (Dựa trên từ khóa bạn gửi)
     validAnswers: [
-      "chủ nghĩa tư bản", "chu nghia tu ban", 
-      "tháp tư bản", "thap tu ban",
-      "kim tự tháp tư bản", "kim tu thap tu ban",
-      "hệ thống tư bản", "he thong tu ban",
-      "xã hội tư bản", "xa hoi tu ban",
-      "capitalism", "pyramid of capitalist system"
+      // Tiếng Việt có dấu
+      "mâu thuẫn đối kháng", "đấu tranh giai cấp", "xung đột giai cấp", 
+      "đối lập giai cấp", "bóc lột và thống trị", "áp bức và phản kháng",
+      // Tiếng Việt không dấu (để người chơi dễ nhập)
+      "mau thuan doi khang", "dau tranh giai cap", "xung dot giai cap",
+      "doi lap giai cap", "boc lot", "thong tri", "ap buc", "phan khang"
     ],
     
     // Thông điệp chiến thắng
-    victoryMessage: "Chính xác! Đây là 'Tháp Chủ Nghĩa Tư Bản'. Bức tranh cho thấy: Giai cấp lao động ở dưới đáy gánh đỡ toàn bộ cấu trúc xã hội. Nếu họ đứng dậy, tất cả sẽ sụp đổ.",
+    victoryMessage: "Chính xác! Bức tranh xã hội có giai cấp luôn chứa đựng mâu thuẫn đối kháng. Đấu tranh giai cấp là động lực phát triển của xã hội có giai cấp nhằm xóa bỏ áp bức, bóc lột.",
     
-    // 6 Mảnh ghép tương ứng với 6 tầng/ý nghĩa của bức tranh
+    // 6 Mảnh ghép tương ứng với 6 câu hỏi lý luận Mác - Lênin
     pieces: [
       {
         id: 0,
-        // Câu hỏi về TẦNG ĐÁY (Công nhân)
-        question: "Trong bức tranh, tầng lớp nào nằm dưới cùng và gánh đỡ toàn bộ trọng lượng của xã hội?",
+        // Câu 1
+        question: "Nhận định nào dưới đây phản ánh đúng nhất quan niệm của triết học Mác – Lênin về căn cứ để hình thành giai cấp?",
         options: [
-          "Vua chúa và quý tộc",
-          "Giai cấp công nhân / Người lao động",
-          "Tăng lữ",
-          "Quân đội"
+          "Cùng mức sống và uy tín xã hội sẽ thuộc cùng một giai cấp",
+          "Cùng nghề nghiệp sẽ có cùng địa vị xã hội",
+          "Quan hệ đối với tư liệu sản xuất và địa vị trong hệ thống sản xuất là căn cứ quyết định",
+          "Sự khác biệt văn hóa – tín ngưỡng là nền tảng tạo nên giai cấp"
         ],
-        correctIndex: 1 
+        correctIndex: 2 // Đáp án C
       },
       {
         id: 1,
-        // Câu hỏi về TẦNG 5 (Tư sản ăn uống)
-        question: "Nhóm người ngồi ăn uống tiệc tùng với dòng chữ 'We eat for you' (Chúng tôi ăn hộ bạn) phản ánh điều gì?",
+        // Câu 2
+        question: "Trong xã hội có đối kháng giai cấp, nội dung cốt lõi của quan hệ giai cấp là gì?",
         options: [
-          "Sự phân phối của cải bất bình đẳng",
-          "Tinh thần chia sẻ lương thực",
-          "Hội thi ăn uống",
-          "Sự thiếu hụt thực phẩm"
+          "Sự khác biệt trình độ học vấn giữa các nhóm người",
+          "Sự khác biệt mức thu nhập và tiêu dùng",
+          "Quan hệ bóc lột: một tập đoàn người chiếm đoạt lao động của tập đoàn người khác",
+          "Sự khác biệt giữa thành thị và nông thôn"
         ],
-        correctIndex: 0
+        correctIndex: 2 // Đáp án C
       },
       {
         id: 2,
-        // Câu hỏi về TẦNG 4 (Quân đội)
-        question: "Tầng lớp lính tráng có dòng chữ 'We shoot at you' (Chúng tôi bắn vào bạn). Vai trò của họ trong hệ thống này là gì?",
+        // Câu 3
+        question: "Chọn phương án diễn đạt đúng nhất về điều kiện tồn tại của giai cấp theo Mác – Lênin.",
         options: [
-          "Bảo vệ người dân lao động",
-          "Bảo vệ hòa bình thế giới",
-          "Bảo vệ lợi ích của giai cấp thống trị bên trên",
-          "Đi săn bắn giải trí"
+          "Giai cấp tồn tại trong mọi xã hội vì con người luôn khác nhau",
+          "Giai cấp chỉ tồn tại khi phương thức sản xuất tạo ra đối kháng lợi ích kinh tế",
+          "Giai cấp xuất hiện chủ yếu do tôn giáo và truyền thống",
+          "Giai cấp xuất hiện do nhà nước đặt ra để quản lý xã hội"
         ],
-        correctIndex: 2
+        correctIndex: 1 // Đáp án B
       },
       {
         id: 3,
-        // Câu hỏi về TẦNG 3 (Tôn giáo/Tăng lữ)
-        question: "Nhóm tăng lữ có dòng chữ 'We fool you' (Chúng tôi lừa mị bạn). Trong bối cảnh bức tranh năm 1911, họ đại diện cho công cụ gì?",
+        // Câu 4
+        question: "Nguyên nhân sâu xa làm nảy sinh giai cấp trong lịch sử được xác định đúng nhất là:",
         options: [
-          "Khoa học kỹ thuật",
-          "Thao túng tư tưởng và tinh thần để người dân cam chịu",
-          "Y tế cộng đồng",
-          "Giáo dục tiên tiến"
+          "Sự xuất hiện của quyền lực chính trị và nhà nước",
+          "Sự phân hóa giàu nghèo do năng lực cá nhân",
+          "Sự phát triển của lực lượng sản xuất gắn với chế độ tư hữu tư liệu sản xuất",
+          "Sự hình thành tôn giáo và hệ tư tưởng thống trị"
         ],
-        correctIndex: 1
+        correctIndex: 2 // Đáp án C
       },
       {
         id: 4,
-        // Câu hỏi về TẦNG 2 (Vua chúa/Lãnh đạo)
-        question: "Nhóm cai trị (We rule you) đứng gần đỉnh tháp. Quyền lực của họ phụ thuộc vào đâu?",
+        // Câu 5
+        question: "Theo Mác – Lênin, hình thức cao nhất và quyết định trong đấu tranh giai cấp của giai cấp vô sản trước khi giành chính quyền là:",
         options: [
-          "Sự ủng hộ của người dân",
-          "Sự nâng đỡ của tầng lớp bên dưới và tiền bạc từ bên trên",
-          "Tài năng thiên bẩm",
-          "Sự may mắn ngẫu nhiên"
+          "Đấu tranh kinh tế",
+          "Đấu tranh tư tưởng",
+          "Đấu tranh chính trị",
+          "Đấu tranh văn hóa"
         ],
-        correctIndex: 1
+        correctIndex: 2 // Đáp án C
       },
       {
         id: 5,
-        // Câu hỏi về ĐỈNH CHÓP (Túi tiền)
-        question: "Trên đỉnh cao nhất của kim tự tháp là một túi tiền khổng lồ ($). Nó tượng trưng cho điều gì?",
+        // Câu 6
+        question: "Nhận định nào phản ánh đúng mối quan hệ biện chứng giữa giai cấp – dân tộc – nhân loại?",
         options: [
-          "Sự thịnh vượng chung cho mọi người",
-          "Chủ nghĩa Tư bản (Capitalism) và sự thống trị của đồng tiền",
-          "Quỹ từ thiện",
-          "Phần thưởng cho người chăm chỉ"
+          "Lợi ích nhân loại luôn tách rời lợi ích giai cấp và dân tộc",
+          "Lợi ích dân tộc trong xã hội có giai cấp luôn tự động đại diện cho nhân loại",
+          "Lợi ích nhân loại gắn với lợi ích giai cấp và dân tộc, vừa thống nhất vừa đấu tranh",
+          "Chỉ cần giải phóng dân tộc thì tự động xóa bỏ áp bức giai cấp"
         ],
-        correctIndex: 1
+        correctIndex: 2 // Đáp án C
       }
     ]
   }
