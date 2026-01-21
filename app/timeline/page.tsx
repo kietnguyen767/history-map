@@ -4,11 +4,15 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Cinzel, Inter } from "next/font/google";
-import { useProgress } from "@/hooks/useProgress"; // Import Hook
+import { Playfair_Display, Inter } from "next/font/google"; // 1. Đổi Cinzel thành Playfair_Display
+import { useProgress } from "@/hooks/useProgress"; 
 
-// Cấu hình font
-const cinzel = Cinzel({ subsets: ["latin"], weight: ["700"] });
+// 2. Cấu hình font Playfair Display hỗ trợ tiếng Việt
+const playfair = Playfair_Display({ 
+  subsets: ["vietnamese"], 
+  weight: ["700", "900"] 
+});
+
 const inter = Inter({ subsets: ["latin"] });
 
 // Dữ liệu giả lập
@@ -50,13 +54,12 @@ const cardVariants = {
 };
 
 export default function TimelinePage() {
-  // Sử dụng Hook để lấy trạng thái và hàm Reset
   const { isFullyUnlocked, resetProgress, completedStories } = useProgress();
 
   return (
     <main className={`min-h-screen bg-stone-100 py-5 px-4 relative ${inter.className}`}>
       
-      {/* --- NÚT QUAY LẠI TRANG CHỦ (Góc trái) --- */}
+      {/* --- NÚT QUAY LẠI TRANG CHỦ --- */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -74,7 +77,7 @@ export default function TimelinePage() {
         </Link>
       </motion.div>
 
-      {/* --- NÚT RESET HÀNH TRÌNH (Góc phải) --- */}
+      {/* --- NÚT RESET HÀNH TRÌNH --- */}
       {completedStories.length > 0 && (
         <motion.button
           initial={{ opacity: 0, x: 20 }}
@@ -90,7 +93,6 @@ export default function TimelinePage() {
       )}
 
       {/* --- NÚT ẨN (DẤU CHẤM THAN) --- */}
-      {/* Chỉ hiện khi đã mở khóa toàn bộ. Khi bấm Reset, biến isFullyUnlocked = false nên nút này sẽ biến mất */}
       <AnimatePresence>
         {isFullyUnlocked && (
           <motion.div
@@ -105,7 +107,6 @@ export default function TimelinePage() {
                 <div className="relative w-14 h-14 bg-red-600 rounded-full flex items-center justify-center border-2 border-white shadow-xl hover:scale-110 transition-transform">
                   <span className="text-3xl font-bold text-white">!</span>
                 </div>
-                {/* Tooltip */}
                 <div className="absolute bottom-full right-0 mb-2 w-max bg-black/90 text-white text-xs font-bold px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
                   Sự thật cuối cùng
                 </div>
@@ -120,7 +121,8 @@ export default function TimelinePage() {
         <motion.h1 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className={`text-4xl md:text-5xl text-stone-900 mb-4 ${cinzel.className}`}
+          // 3. Sử dụng font Playfair ở đây
+          className={`text-4xl md:text-6xl text-stone-900 mb-4 font-bold uppercase ${playfair.className}`}
         >
           Chọn Mốc Thời Gian
         </motion.h1>
@@ -130,11 +132,11 @@ export default function TimelinePage() {
           transition={{ delay: 0.2 }}
           className="text-stone-600 max-w-xl mx-auto"
         >
-         Hãy chọn điểm đến để bắt đầu câu chuyện của bạn.
+          Hãy chọn điểm đến để bắt đầu câu chuyện của bạn.
         </motion.p>
       </div>
 
-      {/* Danh sách các thẻ (Grid System) */}
+      {/* Danh sách các thẻ */}
       <motion.div 
         variants={containerVariants}
         initial="hidden"
@@ -158,12 +160,13 @@ export default function TimelinePage() {
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80" />
                 </div>
 
-                {/* Nội dung bên trong thẻ */}
+                {/* Nội dung */}
                 <div className="absolute inset-0 flex flex-col justify-end p-8 text-white">
                   <span className="text-xs font-bold tracking-widest uppercase opacity-70 mb-2 border-l-2 border-white pl-2">
                     Kỷ nguyên
                   </span>
-                  <h2 className={`text-3xl font-bold mb-3 ${cinzel.className} group-hover:text-amber-300 transition-colors`}>
+                  {/* 4. Sử dụng font Playfair cho tiêu đề thẻ */}
+                  <h2 className={`text-4xl font-black mb-3 uppercase ${playfair.className} group-hover:text-amber-300 transition-colors`}>
                     {era.title}
                   </h2>
                   <p className="text-gray-200 text-sm mb-6 line-clamp-3 opacity-90 transform translate-y-4 transition-transform duration-500 group-hover:translate-y-0">
