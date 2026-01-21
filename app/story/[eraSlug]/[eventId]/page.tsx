@@ -46,7 +46,7 @@ export default function StoryPlayerPage() {
   // --- 3. KHỞI TẠO NHẠC NỀN ---
   useEffect(() => {
     // Tạo đối tượng Audio
-    audioRef.current = new Audio("/music/medieval-fantasy-music-462199.mp3"); // Đổi tên file nhạc của bạn ở đây
+    audioRef.current = new Audio("/music/nhacnen.mp3"); // Đổi tên file nhạc của bạn ở đây
     audioRef.current.loop = true; // Cho nhạc lặp lại vô tận
     audioRef.current.volume = 0.3; // Âm lượng vừa phải (30%) để không át tiếng đọc (nếu có)
 
