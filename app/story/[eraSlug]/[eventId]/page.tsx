@@ -104,20 +104,22 @@ export default function StoryPlayerPage() {
                 fill 
                 className="object-cover opacity-30 blur-3xl scale-110" 
                 priority
+                onError={(e) => { e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect fill='%23333'/%3E%3C/svg%3E"; }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/40" />
             </div>
 
-            {/* Lớp 2: Ảnh chính (Hiển thị trọn vẹn ở giữa, đẩy lên trên một chút để nhường chỗ cho text) */}
-            <div className="absolute inset-0 flex items-center justify-center pb-[20vh]"> 
-              <div className="relative w-full h-full max-w-[90%] max-h-[75%]"> 
+            {/* Lớp 2: Ảnh chính */}
+            <div className="absolute inset-0 flex items-center justify-center pb-[15vh] md:pb-[20vh]"> 
+              <div className="relative w-[85%] md:w-[70%] h-[60vh] md:h-[65vh]"> 
                 <Image 
                   src={content.slides[currentSlide].image} 
                   alt="Story Main Image" 
                   fill 
                   className="object-contain drop-shadow-2xl" 
                   priority
-                  quality={100}
+                  quality={90}
+                  onError={(e) => { e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect fill='%23222'/%3E%3C/svg%3E"; }}
                 />
               </div>
             </div>
@@ -125,55 +127,50 @@ export default function StoryPlayerPage() {
         )}
       </AnimatePresence>
 
-      {/* --- GIAO DIỆN TEXT KỂ CHUYỆN (ĐÃ THU NHỎ & TINH CHỈNH) --- */}
+      {/* --- GIAO DIỆN TEXT KỂ CHUYỆN --- */}
       {mode === 'STORY' && (
-        <div className="absolute inset-0 z-20 flex flex-col justify-end items-center pb-6 md:pb-10 px-4 pointer-events-none">
+        <div className="absolute inset-0 z-20 flex flex-col justify-end items-center pb-4 md:pb-8 px-3 md:px-4 pointer-events-none">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             key={currentSlide}
-            // THAY ĐỔI CSS:
-            // max-w-4xl: Giới hạn chiều ngang tối đa nhỏ hơn (trước là 5xl)
-            // w-full md:w-[60%]: Chỉ chiếm 60% màn hình desktop (gọn hơn)
-            // p-6: Padding nhỏ hơn (trước là p-10)
-            // min-h-[auto]: Không ép chiều cao tối thiểu quá lớn
-            className="pointer-events-auto bg-black/80 backdrop-blur-xl border border-white/10 p-6 md:p-8 rounded-3xl w-full md:w-[60%] max-w-4xl shadow-2xl relative flex flex-col justify-between"
+            className="pointer-events-auto bg-black/80 backdrop-blur-xl border border-white/10 p-5 md:p-7 rounded-2xl md:rounded-3xl w-full md:w-[65%] max-w-3xl shadow-2xl flex flex-col justify-between max-h-[45vh]"
           >
-            {/* Header nhỏ */}
-            <div className="flex justify-between items-center mb-4 text-stone-400 text-xs uppercase font-bold tracking-widest border-b border-white/10 pb-2">
+            {/* Header */}
+            <div className="flex justify-between items-center mb-3 text-stone-400 text-xs uppercase font-bold tracking-widest border-b border-white/10 pb-2">
               <span className="text-amber-500 truncate mr-2">{story.title}</span>
-              <span className="whitespace-nowrap">Slide {currentSlide + 1} / {content.slides.length}</span>
+              <span className="whitespace-nowrap text-xs">Slide {currentSlide + 1} / {content.slides.length}</span>
             </div>
             
-            {/* Nội dung chính: Font chữ vừa phải, dễ đọc */}
-            <div className="mb-6">
-                <p className="text-lg md:text-xl text-stone-100 leading-relaxed font-light">
+            {/* Nội dung */}
+            <div className="mb-4 overflow-y-auto max-h-[20vh] scrollbar-hide">
+                <p className="text-base md:text-lg text-stone-100 leading-relaxed font-light">
                 {content.slides[currentSlide].text}
                 </p>
             </div>
 
-            {/* Nút điều hướng: Gọn gàng hơn */}
-            <div className="flex justify-between items-center pt-2">
+            {/* Nút điều hướng */}
+            <div className="flex justify-between items-center pt-2 gap-3">
               <button 
                 onClick={handlePrevSlide} 
                 disabled={currentSlide === 0} 
-                className={`text-sm md:text-base px-4 py-2 rounded-full text-stone-400 hover:text-white transition-all hover:bg-white/10 ${currentSlide === 0 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+                className={`text-xs md:text-sm px-3 md:px-4 py-2 rounded-full text-stone-400 hover:text-white transition-all hover:bg-white/10 ${currentSlide === 0 ? 'opacity-30 pointer-events-none' : 'opacity-100'}`}
               >
                 ← Quay lại
               </button>
               
               <button 
                 onClick={handleNextSlide} 
-                className="text-sm md:text-base px-6 py-2 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-full transition-all shadow-lg hover:scale-105"
+                className="text-xs md:text-sm px-5 md:px-6 py-2 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-full transition-all shadow-lg hover:scale-105"
               >
-                {currentSlide === content.slides.length - 1 ? "Làm trắc nghiệm" : "Tiếp theo"} →
+                {currentSlide === content.slides.length - 1 ? "Trắc nghiệm" : "Tiếp →"}
               </button>
             </div>
           </motion.div>
         </div>
       )}
 
-      {/* --- GIAO DIỆN QUIZ (Giữ nguyên hoặc chỉnh cho gọn nếu thích) --- */}
+      {/* --- GIAO DIỆN QUIZ --- */}
       <AnimatePresence>
         {mode === 'QUIZ' && (
           <motion.div 
@@ -182,12 +179,12 @@ export default function StoryPlayerPage() {
             className="absolute inset-0 z-30 bg-stone-900 flex items-center justify-center p-4"
           >
             {!quizFinished ? (
-              <div className="max-w-3xl w-full bg-stone-800 p-8 md:p-12 rounded-3xl border border-stone-600 shadow-2xl">
-                <div className="text-center mb-8">
+              <div className="max-w-2xl md:max-w-3xl w-full bg-stone-800 p-6 md:p-10 rounded-3xl border border-stone-600 shadow-2xl">
+                <div className="text-center mb-6">
                    <span className="bg-amber-900 text-amber-200 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">
-                     Câu hỏi {currentQuizIndex + 1} / {content.quizzes.length}
+                     Câu {currentQuizIndex + 1} / {content.quizzes.length}
                    </span>
-                   <h3 className="text-xl md:text-2xl text-white mt-4 font-serif font-bold leading-snug">
+                   <h3 className="text-lg md:text-xl text-white mt-4 font-serif font-bold leading-snug">
                      {content.quizzes[currentQuizIndex].question}
                    </h3>
                 </div>
@@ -206,7 +203,7 @@ export default function StoryPlayerPage() {
                         key={index}
                         onClick={() => handleAnswer(index)}
                         disabled={selectedOption !== null}
-                        className={`w-full p-4 text-left rounded-xl transition-all font-medium ${btnColor}`}
+                        className={`w-full p-3 md:p-4 text-left rounded-xl transition-all font-medium text-sm md:text-base ${btnColor}`}
                       >
                         <span className="mr-3 font-bold opacity-70">{String.fromCharCode(65 + index)}.</span>
                         {option}
@@ -217,34 +214,32 @@ export default function StoryPlayerPage() {
 
                 {selectedOption !== null && (
                   <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="mt-6 pt-6 border-t border-stone-600">
-                    <div className={`text-lg font-bold mb-2 ${isCorrect ? 'text-green-400' : 'text-red-400'}`}>
+                    <div className={`text-base md:text-lg font-bold mb-2 ${isCorrect ? 'text-green-400' : 'text-red-400'}`}>
                       {isCorrect ? "✅ Chính xác!" : "❌ Chưa đúng!"}
                     </div>
-                    <p className="text-stone-300 mb-6">{content.quizzes[currentQuizIndex].explanation}</p>
+                    <p className="text-stone-300 text-sm mb-6">{content.quizzes[currentQuizIndex].explanation}</p>
                     <button onClick={handleNextQuiz} className="w-full py-3 bg-amber-500 hover:bg-amber-400 text-black font-bold rounded-full transition-colors">
-                      {currentQuizIndex < content.quizzes.length - 1 ? "Câu hỏi tiếp theo →" : "Xem tổng kết →"}
+                      {currentQuizIndex < content.quizzes.length - 1 ? "Tiếp theo →" : "Tổng kết →"}
                     </button>
                   </motion.div>
                 )}
               </div>
             ) : (
-              <div className="max-w-2xl w-full bg-stone-800 p-8 md:p-12 rounded-3xl border border-stone-500 shadow-2xl text-center relative overflow-hidden">
+              <div className="max-w-xl md:max-w-2xl w-full bg-stone-800 p-6 md:p-10 rounded-3xl border border-stone-500 shadow-2xl text-center relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-40 h-40 bg-amber-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-                <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", damping: 12 }} className="text-6xl mb-6 block">💡</motion.div>
+                <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", damping: 12 }} className="text-5xl md:text-6xl mb-4 block">💡</motion.div>
                 
-                <h2 className="text-3xl font-serif font-bold text-amber-500 mb-2">Tổng Kết Bài Học</h2>
-                <p className="text-stone-400 text-sm uppercase tracking-widest mb-8">{story.title}</p>
+                <h2 className="text-2xl md:text-3xl font-serif font-bold text-amber-500 mb-1">Kết Luận</h2>
+                <p className="text-stone-400 text-xs uppercase tracking-widest mb-6">{story.title}</p>
 
-                <div className="bg-black/30 p-6 md:p-8 rounded-xl border border-white/10 mb-8 relative">
-                   <span className="absolute top-4 left-4 text-6xl text-stone-700 opacity-20 font-serif leading-none">“</span>
-                   <p className="text-lg md:text-xl text-stone-200 leading-relaxed italic font-light relative z-10">
+                <div className="bg-black/30 p-5 md:p-7 rounded-xl border border-white/10 mb-6 relative">
+                   <p className="text-base md:text-lg text-stone-200 leading-relaxed italic font-light">
                      {lessonText}
                    </p>
-                   <span className="absolute bottom-[-10px] right-4 text-6xl text-stone-700 opacity-20 font-serif leading-none">”</span>
                 </div>
 
-                <button onClick={handleFinish} className="px-10 py-4 bg-amber-500 hover:bg-amber-400 text-black font-bold rounded-full transition-all shadow-[0_0_20px_rgba(245,158,11,0.3)] hover:shadow-[0_0_30px_rgba(245,158,11,0.5)] uppercase tracking-wider text-sm">
-                  Hoàn thành & Quay về
+                <button onClick={handleFinish} className="px-8 md:px-10 py-3 md:py-4 bg-amber-500 hover:bg-amber-400 text-black font-bold rounded-full transition-all shadow-lg uppercase tracking-wider text-xs md:text-sm">
+                  Hoàn thành
                 </button>
               </div>
             )}

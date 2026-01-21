@@ -34,7 +34,7 @@ const eras = [
     title: "Tương Lai",
     slug: "tuong-lai",
     description: "Bước vào thế giới viễn tưởng, nơi giới hạn bị phá vỡ.",
-    image: "https://images.unsplash.com/photo-1535295972055-1c762f4483e5?q=80&w=800&auto=format&fit=crop", 
+    image: "https://insight.isb.edu.vn/wp-content/uploads/sites/2/2020/08/internet-v%E1%BA%A1n-v%E1%BA%ADt-IoT-tr%C3%AD-tu%E1%BB%87-nh%C3%A2n-t%E1%BA%A1o-AI-thumbnail-480x360.png", 
     color: "from-purple-600 to-fuchsia-900"
   }
 ];
